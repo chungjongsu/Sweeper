@@ -5,9 +5,37 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Sweeper.Views.Windows"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal" 
+        TextOptions.TextRenderingMode="Auto"        
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        Style="{StaticResource SweeperWindow}"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Sweeper" Height="700" Width="550" WindowStartupLocation="CenterScreen">
     <Grid>
-        <controls:CarouselControl/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+        
+        <controls:CarouselControl Grid.Row="0" Background="{DynamicResource MaterialDesignBackground}" Pages="{Binding Pages}"/>
+
+        <GridSplitter Grid.Row="1" Background="{DynamicResource MaterialDesignDivider}" HorizontalAlignment="Stretch" VerticalAlignment="Center" ShowsPreview="True" Height="1"/>
+
+        <Grid Grid.Row="2">
+            
+        </Grid>
+
+        <Border Grid.Row="3" BorderBrush="{DynamicResource MaterialDesignDivider}" BorderThickness="0 1 0 0">
+            <Grid Background="{DynamicResource MaterialDesignBackground}">
+
+            </Grid>
+        </Border>
     </Grid>
 </Window>

@@ -8,12 +8,10 @@
 
   <ItemGroup>
     <Folder Include="Converters\" />
-    <Folder Include="Bases\" />
     <Folder Include="Commands\" />
     <Folder Include="Entities\" />
     <Folder Include="Utilities\" />
-    <Folder Include="ViewModels\" />
-    <Folder Include="Views\Pages\" />
+    <Folder Include="ViewModels\Pages\" />
   </ItemGroup>
 
   <ItemGroup>

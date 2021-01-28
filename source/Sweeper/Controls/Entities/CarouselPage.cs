@@ -7,13 +7,13 @@ using System.Windows.Controls;
 
 namespace Sweeper.Controls.Entities
 {
-    internal class CarouselPage
+    public class CarouselPage
     {
         #region ::Fields & Properties::
 
         private readonly string _title = string.Empty;
 
-        internal string Title
+        public string Title
         {
             get
             {
@@ -23,7 +23,7 @@ namespace Sweeper.Controls.Entities
 
         private readonly Page _content = null;
 
-        internal Page Content
+        public Page Content
         {
             get
             {
@@ -35,12 +35,12 @@ namespace Sweeper.Controls.Entities
 
         #region ::Constructors::
 
-        internal CarouselPage()
+        public CarouselPage()
         {
 
         }
 
-        internal CarouselPage(string title, Page content)
+        public CarouselPage(string title, Page content)
         {
             _title = title;
             _content = content;
