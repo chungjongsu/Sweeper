@@ -15,26 +15,32 @@
         FontFamily="{DynamicResource MaterialDesignFont}"
         Style="{StaticResource SweeperWindow}"
         mc:Ignorable="d"
-        Title="Sweeper" Height="700" Width="550" WindowStartupLocation="CenterScreen">
+        Title="Sweeper" Height="600" Width="900" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="3*"/>
-            <RowDefinition Height="50"/>
+            <RowDefinition/>
+            <RowDefinition Height="40"/>
         </Grid.RowDefinitions>
         
-        <controls:CarouselControl Grid.Row="0" Background="{DynamicResource MaterialDesignBackground}" Pages="{Binding Pages}"/>
-
-        <GridSplitter Grid.Row="1" Background="{DynamicResource MaterialDesignDivider}" HorizontalAlignment="Stretch" VerticalAlignment="Center" ShowsPreview="True" Height="1"/>
-
-        <Grid Grid.Row="2">
+        <TabControl Grid.Row="0" Style="{StaticResource MaterialDesignNavigatilRailTabControl}">
+            <TabItem Header="{materialDesign:PackIcon Kind=ViewDashboardOutline, Size=24}" Style="{StaticResource MaterialDesignNavigationRailTabItem}">
+                <controls:CarouselControl Grid.Row="0" Pages="{Binding Pages}"/>
+            </TabItem>
             
-        </Grid>
+            <TabItem Header="{materialDesign:PackIcon Kind=Tools, Size=24}" Style="{StaticResource MaterialDesignNavigationRailTabItem}">
+                
+            </TabItem>
 
-        <Border Grid.Row="3" BorderBrush="{DynamicResource MaterialDesignDivider}" BorderThickness="0 1 0 0">
-            <Grid Background="{DynamicResource MaterialDesignBackground}">
+            <TabItem Header="{materialDesign:PackIcon Kind=CogOutline, Size=24}" Style="{StaticResource MaterialDesignNavigationRailTabItem}">
 
+            </TabItem>
+        </TabControl>
+
+        <Border Grid.Row="1" BorderBrush="{DynamicResource MaterialDesignDivider}" BorderThickness="0 1 0 0">
+            <Grid>
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="10 0 0 0">
+                    <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}" Text="Version 1.10.0.2" />
+                </StackPanel>
             </Grid>
         </Border>
     </Grid>
