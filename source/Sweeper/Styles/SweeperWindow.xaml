@@ -53,55 +53,67 @@
     </Style>
 
     <Style x:Key="SweeperWindow" TargetType="Window">
+        <EventSetter Event="Loaded" Handler="OnLoaded"/>
+
         <Setter Property="WindowChrome.WindowChrome">
             <Setter.Value>
                 <WindowChrome 
-                    ResizeBorderThickness="5,5,5,5" 
-                    CaptionHeight="35"
+                    ResizeBorderThickness="5" 
+                    CaptionHeight="40"
                     CornerRadius="0" 
-                    GlassFrameThickness="0.5" />
+                    GlassFrameThickness="0.5"/>
             </Setter.Value>
         </Setter>
+
+        <Setter Property="WindowStyle" Value="None"/>
+        <Setter Property="AllowsTransparency" Value="True"/>
+        <Setter Property="WindowState" Value="Normal"/>
 
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Window">
-                    <Grid Background="{DynamicResource MaterialDesignBackground}">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="40"/>
-                            <RowDefinition Height="*"/>
-                        </Grid.RowDefinitions>
-                        <!--Title bar-->
-                        <Border Grid.Row="0" BorderBrush="{DynamicResource MaterialDesignDivider}" BorderThickness="0 0 0 1">
+                    <!--Non-client area border-->
+                    <Border BorderBrush="Transparent" BorderThickness="6">
+                        <!--Client area border-->
+                        <Border BorderBrush="{DynamicResource MaterialDesignDivider}" BorderThickness="1">
                             <Grid Background="{DynamicResource MaterialDesignBackground}">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="50"/>
-                                    <ColumnDefinition Width="50"/>
-                                    <ColumnDefinition Width="50"/>
-                                </Grid.ColumnDefinitions>
-                                
-                                <TextBlock Grid.Column="0" Style="{DynamicResource MaterialDesignCaptionTextBlock}" Foreground="{DynamicResource MaterialDesignBody}"
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="40"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <!--Title bar-->
+                                <Border Grid.Row="0" BorderBrush="{DynamicResource MaterialDesignDivider}" BorderThickness="0 0 0 1">
+                                    <Grid Background="{DynamicResource MaterialDesignBackground}">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="50"/>
+                                            <ColumnDefinition Width="50"/>
+                                            <ColumnDefinition Width="50"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <TextBlock Grid.Column="0" Style="{DynamicResource MaterialDesignCaptionTextBlock}" Foreground="{DynamicResource MaterialDesignBody}"
                                            VerticalAlignment="Center" HorizontalAlignment="Left" Margin="20 0 0 0" TextWrapping="Wrap"
                                            Text="{TemplateBinding Title}"/>
 
-                                <Button Grid.Column="1" Style="{StaticResource NormalButton}" WindowChrome.IsHitTestVisibleInChrome="True" Click="Minimize">
-                                    <materialDesign:PackIcon Kind="WindowMinimize" Width="14" Height="14"/>
-                                </Button>
-                                <Button Grid.Column="2" Style="{StaticResource NormalButton}" WindowChrome.IsHitTestVisibleInChrome="True" Click="Maximize">
-                                    <materialDesign:PackIcon Kind="WindowMaximize" Width="14" Height="14"/>
-                                </Button>
-                                <Button Grid.Column="3" Style="{StaticResource CloseButton}" WindowChrome.IsHitTestVisibleInChrome="True" Click="Close">
-                                    <materialDesign:PackIcon Kind="WindowClose" Width="14" Height="14"/>
-                                </Button>
+                                        <Button Grid.Column="1" Style="{StaticResource NormalButton}" WindowChrome.IsHitTestVisibleInChrome="True" Click="OnMinimize">
+                                            <materialDesign:PackIcon Kind="WindowMinimize" Width="14" Height="14"/>
+                                        </Button>
+                                        <Button Grid.Column="2" Style="{StaticResource NormalButton}" WindowChrome.IsHitTestVisibleInChrome="True" Click="OnMaximize">
+                                            <materialDesign:PackIcon Kind="WindowMaximize" Width="14" Height="14"/>
+                                        </Button>
+                                        <Button Grid.Column="3" Style="{StaticResource CloseButton}" WindowChrome.IsHitTestVisibleInChrome="True" Click="OnClose">
+                                            <materialDesign:PackIcon Kind="WindowClose" Width="14" Height="14"/>
+                                        </Button>
+                                    </Grid>
+                                </Border>
+
+                                <!--Window content-->
+                                <Grid x:Name="Content" Grid.Row="1">
+                                    <ContentPresenter/>
+                                </Grid>
                             </Grid>
                         </Border>
-
-                        <!--Window content-->
-                        <Grid x:Name="Content" Grid.Row="1">
-                            <ContentPresenter/>
-                        </Grid>
-                    </Grid>
+                    </Border>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>

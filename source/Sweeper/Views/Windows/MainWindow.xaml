@@ -28,11 +28,63 @@
             </TabItem>
             
             <TabItem Header="{materialDesign:PackIcon Kind=Tools, Size=24}" Style="{StaticResource MaterialDesignNavigationRailTabItem}">
-                
+                <StackPanel Orientation="Vertical">
+                    <GroupBox Style="{StaticResource InLineGroupBox}">
+                        <GroupBox.Header>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Style="{StaticResource MaterialDesignBody2TextBlock}" Text="Windows 최적화"/>
+                            </StackPanel>
+                        </GroupBox.Header>
+
+                        <StackPanel Orientation="Vertical">
+                            <Button Style="{StaticResource MaterialDesignFlatButton}" HorizontalContentAlignment="Left" Height="40">
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon Foreground="Orange" Kind="ArrowRight" Width="16" Height="16" VerticalAlignment="Center"/>
+                                    <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}" Foreground="{DynamicResource MaterialDesignBody}"
+                                               VerticalAlignment="Center" Margin="8 0 0 0" Text="RAM 최적화"/>
+                                </StackPanel>
+                            </Button>
+
+                            <Separator Background="{DynamicResource MaterialDesignDivider}"/>
+
+                            <Button Style="{StaticResource MaterialDesignFlatButton}" HorizontalContentAlignment="Left" Height="40">
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon Foreground="LightCoral" Kind="Harddisk" Width="16" Height="16" VerticalAlignment="Center"/>
+                                    <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}" Foreground="{DynamicResource MaterialDesignBody}"
+                                               VerticalAlignment="Center" Margin="8 0 0 0" Text="디스크 정리"/>
+                                </StackPanel>
+                            </Button>
+                        </StackPanel>
+                    </GroupBox>
+
+                    <GroupBox Style="{StaticResource InLineGroupBox}">
+                        <GroupBox.Header>
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon Foreground="CadetBlue" Kind="FastRewind" Width="16" Height="16"/>
+                                <TextBlock Style="{StaticResource MaterialDesignBody2TextBlock}" Margin="10 0 0 0" Text="테스트"/>
+                            </StackPanel>
+                        </GroupBox.Header>
+
+                    </GroupBox>
+
+                    <GroupBox Style="{StaticResource InLineGroupBox}">
+                        <GroupBox.Header>
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon Foreground="CadetBlue" Kind="FastRewind" Width="16" Height="16"/>
+                                <TextBlock Style="{StaticResource MaterialDesignBody2TextBlock}" Margin="10 0 0 0" Text="테스트 2"/>
+                            </StackPanel>
+                        </GroupBox.Header>
+
+                    </GroupBox>
+                </StackPanel>
             </TabItem>
 
             <TabItem Header="{materialDesign:PackIcon Kind=CogOutline, Size=24}" Style="{StaticResource MaterialDesignNavigationRailTabItem}">
+                <TabControl Margin="4">
+                    <TabItem Header="asewqt">
 
+                    </TabItem>
+                </TabControl>
             </TabItem>
         </TabControl>
 

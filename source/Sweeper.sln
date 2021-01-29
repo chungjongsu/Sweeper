@@ -8,7 +8,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sweeper", "Sweeper\Sweeper.
 		{C5F812A6-8855-479D-AFC6-C0B1ACED201A} = {C5F812A6-8855-479D-AFC6-C0B1ACED201A}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sweeper.Core", "Sweeper.Core\Sweeper.Core.csproj", "{C5F812A6-8855-479D-AFC6-C0B1ACED201A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sweeper.Core", "Sweeper.Core\Sweeper.Core.csproj", "{C5F812A6-8855-479D-AFC6-C0B1ACED201A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
