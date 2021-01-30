@@ -35,8 +35,8 @@ namespace Sweeper.ViewModels.Windows
 
         public MainViewModel()
         {
-            _pages.Add(new CarouselPage("Diagnostics", new DiagnosticsPage()));
             _pages.Add(new CarouselPage("Performance Monitor", new PerformanceMonitorPage()));
+            _pages.Add(new CarouselPage("Diagnostics", new DiagnosticsPage()));
         }
 
         #endregion
