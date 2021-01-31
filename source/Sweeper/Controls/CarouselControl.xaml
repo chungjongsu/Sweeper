@@ -15,22 +15,28 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800"
              x:Name="carouselControl">
-    <Grid x:Name="backgroundGrid" Background="Transparent" MouseEnter="OnGridMouseEnter" MouseLeave="OnGridMouseLeave">
+    <Grid x:Name="backgroundGrid" Background="Transparent">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="50"/>
+            <ColumnDefinition Width="60"/>
             <ColumnDefinition/>
-            <ColumnDefinition Width="50"/>
+            <ColumnDefinition Width="60"/>
         </Grid.ColumnDefinitions>
-        <!--TODO : Add mouse hover event trigger-->
 
+        <!-- Content Frame -->
         <Frame x:Name="contentFrame" Grid.Column="0" Grid.ColumnSpan="3" NavigationUIVisibility="Hidden"/>
 
-        <Button x:Name="previousButton" Grid.Column="0" Style="{StaticResource MaterialDesignIconForegroundButton}" Width="36" Height="36" Visibility="Hidden" Click="OnPreviousClick">
-            <materialDesign:PackIcon Width="16" Height="16" Opacity=".50" Kind="ArrowLeft" />
-        </Button>
+        <!-- LEFT : Previous Button -->
+        <Grid Grid.Column="0" Background="Transparent" MouseEnter="OnGridMouseEnter" MouseLeave="OnGridMouseLeave">
+            <Button x:Name="previousButton" Style="{StaticResource MaterialDesignIconForegroundButton}" Width="36" Height="36" Visibility="Hidden" Click="OnPreviousClick">
+                <materialDesign:PackIcon Width="16" Height="16" Opacity=".50" Kind="ArrowLeft" />
+            </Button>
+        </Grid>
 
-        <Button x:Name="nextButton" Grid.Column="2" Style="{StaticResource MaterialDesignIconForegroundButton}" Width="36" Height="36" Visibility="Hidden" Click="OnNextClick">
-            <materialDesign:PackIcon Width="16" Height="16" Opacity=".50" Kind="ArrowRight" />
-        </Button>
+        <!-- RIGHT : Next Button -->
+        <Grid Grid.Column="2" Background="Transparent" MouseEnter="OnGridMouseEnter" MouseLeave="OnGridMouseLeave">
+            <Button x:Name="nextButton" Style="{StaticResource MaterialDesignIconForegroundButton}" Width="36" Height="36" Visibility="Hidden" Click="OnNextClick">
+                <materialDesign:PackIcon Width="16" Height="16" Opacity=".50" Kind="ArrowRight" />
+            </Button>
+        </Grid>
     </Grid>
 </UserControl>
