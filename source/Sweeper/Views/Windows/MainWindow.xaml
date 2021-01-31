@@ -17,60 +17,55 @@
         mc:Ignorable="d"
         Title="Sweeper" Height="600" Width="900" MinHeight="600" MinWidth="900" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
     <Grid>
-        <TabControl Style="{StaticResource MaterialDesignNavigatilRailTabControl}">
-            <TabItem Header="{materialDesign:PackIcon Kind=ViewDashboardOutline, Size=24}" Style="{StaticResource MaterialDesignNavigationRailTabItem}">
-                <controls:CarouselControl Grid.Row="0" Background="{DynamicResource MaterialDesignToolBarBackground}" Pages="{Binding Pages}"/>
+        <TabControl Style="{StaticResource MaterialDesignNavigatilRailTabControl}" materialDesign:ColorZoneAssist.Mode="Custom"
+                    materialDesign:ColorZoneAssist.Background="{DynamicResource MaterialDesignPaper}">
+            <!-- TabItem Style -->
+            <TabControl.Resources>
+                <Style x:Key="CustomizedNavigationRailTabItem" TargetType="TabItem" BasedOn="{StaticResource MaterialDesignNavigationRailTabItem}">
+                    <Style.Resources>
+                        <Style TargetType="materialDesign:PackIcon">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=TabItem}}" Value="True">
+                                    <Setter Property="Foreground" Value="{DynamicResource PrimaryHueMidBrush}"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=TabItem}}" Value="False">
+                                    <Setter Property="Foreground" Value="{DynamicResource MaterialDesignBodyLight}"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Style.Resources>
+                </Style>
+            </TabControl.Resources>
+
+            <!-- Dashboard Tab -->
+            <TabItem Header="{materialDesign:PackIcon Kind=ViewDashboardOutline, Size=24}" Style="{StaticResource CustomizedNavigationRailTabItem}">
+                <Grid>
+                    <controls:CarouselControl Grid.Row="0" Pages="{Binding Pages}"/>
+                </Grid>
             </TabItem>
 
-            <TabItem Header="{materialDesign:PackIcon Kind=Tools, Size=24}" Style="{StaticResource MaterialDesignNavigationRailTabItem}">
+            <!-- Tools Tab -->
+            <TabItem Header="{materialDesign:PackIcon Kind=Tools, Size=24}" Style="{StaticResource CustomizedNavigationRailTabItem}">
                 <ScrollViewer VerticalScrollBarVisibility="Auto">
-                    <StackPanel Orientation="Vertical" Background="{DynamicResource MaterialDesignToolBarBackground}">
-                        <GroupBox Style="{StaticResource CircularGroupBox}" Margin="10 10 10 0">
-                            <StackPanel Orientation="Vertical">
-                                <Button Style="{StaticResource MaterialDesignFlatButton}" HorizontalContentAlignment="Left" Height="80">
-                                    <StackPanel Orientation="Horizontal">
-                                        <materialDesign:PackIcon Foreground="Orange" Kind="ArrowRight" Width="20" Height="20" Margin="8 0 0 0" VerticalAlignment="Center"/>
-                                        <StackPanel Orientation="Vertical" Margin="20 0 0 0">
-                                            <TextBlock Style="{StaticResource MaterialDesignBody1TextBlock}" Foreground="{DynamicResource MaterialDesignBody}"
-                                               VerticalAlignment="Center" Margin="0 0 0 0" Opacity=".90" Text="RAM 최적화"/>
-                                            <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}" Foreground="{DynamicResource MaterialDesignBody}"
-                                               VerticalAlignment="Center" Margin="0 0 0 0" Opacity=".68" Text="RAM 메모리 최적화에 관련된 도구를 제공합니다."/>
-                                        </StackPanel>
-                                    </StackPanel>
-                                </Button>
-
-                                <Separator Background="{DynamicResource MaterialDesignDivider}" Margin="0"/>
-
-                                <Button Style="{StaticResource MaterialDesignFlatButton}" HorizontalContentAlignment="Left" Height="80">
-                                    <StackPanel Orientation="Horizontal">
-                                        <materialDesign:PackIcon Foreground="LightCoral" Kind="Harddisk" Width="20" Height="20" Margin="8 0 0 0" VerticalAlignment="Center"/>
-                                        <StackPanel Orientation="Vertical" Margin="20 0 0 0">
-                                            <TextBlock Style="{StaticResource MaterialDesignBody1TextBlock}" Foreground="{DynamicResource MaterialDesignBody}"
-                                               VerticalAlignment="Center" Margin="0 0 0 0" Opacity=".90" Text="저장소 최적화"/>
-                                            <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}" Foreground="{DynamicResource MaterialDesignBody}"
-                                               VerticalAlignment="Center" Margin="0 0 0 0" Opacity=".68" Text="사용자 컴퓨터 디바이스의 저장소를 최적화합니다."/>
-                                        </StackPanel>
-                                    </StackPanel>
-                                </Button>
-                            </StackPanel>
-                        </GroupBox>
-
-                        <GroupBox Style="{StaticResource CircularGroupBox}" Margin="0 20 0 0">
-
-                        </GroupBox>
-
-                        <GroupBox Style="{StaticResource CircularGroupBox}" Margin="0 20 0 0">
-
-                        </GroupBox>
+                    <StackPanel Orientation="Vertical">
+                        
                     </StackPanel>
                 </ScrollViewer>
             </TabItem>
 
-            <TabItem Header="{materialDesign:PackIcon Kind=CogOutline, Size=24}" Style="{StaticResource MaterialDesignNavigationRailTabItem}">
-                <StackPanel Orientation="Vertical" Background="{DynamicResource MaterialDesignToolBarBackground}">
-                    <TextBlock Style="{StaticResource MaterialDesignHeadline5TextBlock}" HorizontalAlignment="Center" Margin="0 20 0 0" Opacity=".80" Text="설정" />
-                    
-                </StackPanel>
+            <!-- Settings Tab -->
+            <TabItem Header="{materialDesign:PackIcon Kind=CogOutline, Size=24}" Style="{StaticResource CustomizedNavigationRailTabItem}">
+                <TabControl Style="{StaticResource MaterialDesignTabControl}">
+                    <TabItem Header="General">
+                        
+                    </TabItem>
+                    <TabItem Header="Diagnostics">
+                        
+                    </TabItem>
+                    <TabItem Header="Optimization">
+                        
+                    </TabItem>
+                </TabControl>
             </TabItem>
         </TabControl>
     </Grid>

@@ -4,7 +4,7 @@
                     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
                     x:Class="Sweeper.Styles.SweeperWindow">
     <Style x:Key="NormalButton" TargetType="Button">
-        <Setter Property="Background" Value="{DynamicResource MaterialDesignBackground}"/>
+        <Setter Property="Background" Value="{DynamicResource MaterialDesignPaper}"/>
         <Setter Property="Foreground" Value="{DynamicResource MaterialDesignBodyLight}"/>
         <Setter Property="BorderThickness" Value="0"/>
 
@@ -28,7 +28,7 @@
     </Style>
 
     <Style x:Key="CloseButton" TargetType="Button">
-        <Setter Property="Background" Value="{DynamicResource MaterialDesignBackground}"/>
+        <Setter Property="Background" Value="{DynamicResource MaterialDesignPaper}"/>
         <Setter Property="Foreground" Value="{DynamicResource MaterialDesignBodyLight}"/>
         <Setter Property="BorderThickness" Value="0"/>
 
@@ -64,32 +64,22 @@
         </Setter>
 
         <Setter Property="WindowState" Value="Normal"/>
+        <Setter Property="WindowStyle" Value="None"/>
+        <Setter Property="AllowsTransparency" Value="True"/>
 
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Window">
                     <!--Non-client area border-->
-                    <Border>
-                        <Border.Style>
-                            <Style TargetType="Border">
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding WindowState, RelativeSource={RelativeSource TemplatedParent}}" Value="Maximized">
-                                        <Setter Property="BorderThickness" Value="6" />
-                                    </DataTrigger>
-                                    <DataTrigger Binding="{Binding WindowState, RelativeSource={RelativeSource TemplatedParent}}" Value="Normal">
-                                        <Setter Property="BorderThickness" Value="0" />
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </Border.Style>
-                        <Grid Background="{DynamicResource MaterialDesignBackground}">
+                    <Border BorderBrush="{DynamicResource MaterialDesignDivider}" BorderThickness="1">
+                        <Grid Background="{DynamicResource MaterialDesignPaper}">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="40"/>
                                 <RowDefinition Height="*"/>
                             </Grid.RowDefinitions>
                             <!--Title bar-->
                             <Border Grid.Row="0" BorderBrush="{DynamicResource MaterialDesignDivider}" BorderThickness="0 0 0 1">
-                                <Grid Background="{DynamicResource MaterialDesignBackground}">
+                                <Grid Background="{DynamicResource MaterialDesignPaper}">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="*"/>
                                         <ColumnDefinition Width="50"/>
