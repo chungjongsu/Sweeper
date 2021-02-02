@@ -20,16 +20,16 @@ using System.Windows.Shapes;
 namespace Sweeper.Controls
 {
     /// <summary>
-    /// CarouselControl.xaml에 대한 상호 작용 논리
+    /// CarouselPageViewer.xaml에 대한 상호 작용 논리
     /// </summary>
-    public partial class CarouselControl : UserControl, INotifyPropertyChanged
+    public partial class CarouselPageViewer : UserControl, INotifyPropertyChanged
     {
         #region ::Fields & Properties::
 
         private int _currentIndex = 0;
 
         // Dependency property for CarouselPageCollection.
-        public static readonly DependencyProperty PagesProperty = DependencyProperty.Register("Pages", typeof(List<CarouselPage>), typeof(CarouselControl), new PropertyMetadata());
+        public static readonly DependencyProperty PagesProperty = DependencyProperty.Register("Pages", typeof(List<CarouselPage>), typeof(CarouselPageViewer), new PropertyMetadata());
 
         public List<CarouselPage> Pages
         {
@@ -48,7 +48,7 @@ namespace Sweeper.Controls
 
         #region ::Constructors::
 
-        public CarouselControl()
+        public CarouselPageViewer()
         {
             InitializeComponent();
 

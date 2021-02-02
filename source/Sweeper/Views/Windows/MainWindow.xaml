@@ -40,7 +40,7 @@
             <!-- Home Tab -->
             <TabItem Header="{materialDesign:PackIcon Kind=Home, Size=24}" Style="{StaticResource CustomizedNavigationRailTabItem}">
                 <Grid>
-                    <controls:CarouselControl Grid.Row="0" Pages="{Binding Pages}"/>
+                    <controls:CarouselPageViewer Grid.Row="0" Pages="{Binding Pages}"/>
                 </Grid>
             </TabItem>
 

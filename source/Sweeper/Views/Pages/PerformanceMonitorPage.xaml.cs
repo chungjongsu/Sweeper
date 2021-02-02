@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Sweeper.ViewModels.Pages;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,7 @@ namespace Sweeper.Views.Pages
         public PerformanceMonitorPage()
         {
             InitializeComponent();
+            this.DataContext = new PerformanceMonitorViewModel();
         }
     }
 }

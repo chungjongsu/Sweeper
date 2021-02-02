@@ -1,6 +1,7 @@
 ﻿<Page x:Class="Sweeper.Views.Pages.PerformanceMonitorPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:controls="clr-namespace:Sweeper.Controls"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Sweeper.Views.Pages"
@@ -9,6 +10,7 @@
       Title="PerformanceMonitorPage">
 
     <Grid>
-        
+        <controls:PolygonalGraphBox BorderBrush="{DynamicResource PrimaryHueMidBrush}" LineBrush="{DynamicResource PrimaryHueMidBrush}" GridBrush="{DynamicResource MaterialDesignDivider}"
+            Width="600" Height="300" ShowGrid="True" Points="{Binding GraphPoints}"/>
     </Grid>
 </Page>
