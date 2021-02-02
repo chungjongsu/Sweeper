@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
@@ -79,7 +80,7 @@ namespace Sweeper.Controls
 
         // Dependency property for ShowGrid.
         public static readonly DependencyProperty ShowGridProperty = DependencyProperty.Register("ShowGrid", typeof(bool), typeof(PolygonalGraphBox),
-            new UIPropertyMetadata(true, new PropertyChangedCallback(OnPropertyChanged)));
+            new UIPropertyMetadata(true, new PropertyChangedCallback(OnShowGridChanged)));
 
         public bool ShowGrid
         {
@@ -96,7 +97,7 @@ namespace Sweeper.Controls
 
         // Dependency property for Points.
         public static readonly DependencyProperty PointsProperty = DependencyProperty.Register("Points", typeof(ObservableCollection<double>), typeof(PolygonalGraphBox),
-            new UIPropertyMetadata(new ObservableCollection<double>(), new PropertyChangedCallback(OnPropertyChanged)));
+            new FrameworkPropertyMetadata(new ObservableCollection<double>(), (FrameworkPropertyMetadataOptions.AffectsRender | FrameworkPropertyMetadataOptions.BindsTwoWayByDefault), OnPointsChanged));
 
         public ObservableCollection<double> Points
         {
@@ -130,32 +131,45 @@ namespace Sweeper.Controls
         private void DrawGraph()
         {
             graphCanvas.Children.Clear();
-
-            if (ShowGrid)
-            {
-                DrawBackgroundGrid();
-            }
-
+            DrawBackground();
             DrawPoints();
         }
 
-        private void DrawBackgroundGrid()
+        private void DrawBackground()
         {
-            double width = (Width - 2) / 20;
-            double height = (Height - 2) / 10;
+            Debug.WriteLine(ShowGrid);
+            if (ShowGrid)
+            {
+                double width = (Width - 2) / 20;
+                double height = (Height - 2) / 10;
 
-            // Initialize drawing.
-            RectangleGeometry geometry = new RectangleGeometry(new Rect(0, 0, 100, 100));
-            Pen pen = new Pen(GridBrush, 1.0);
-            GeometryDrawing drawing = new GeometryDrawing(Background, pen, geometry);
+                if (width < 0)
+                {
+                    width = 10;
+                }
 
-            // Initialize brush.
-            DrawingBrush brush = new DrawingBrush(drawing);
-            brush.TileMode = TileMode.Tile;
-            brush.Viewport = new Rect(0, 0, width, height);
-            brush.ViewportUnits = BrushMappingMode.Absolute;
+                if (height < 0)
+                {
+                    height = 10;
+                }
 
-            graphCanvas.Background = brush;
+                // Initialize drawing.
+                RectangleGeometry geometry = new RectangleGeometry(new Rect(0, 0, 100, 100));
+                Pen pen = new Pen(GridBrush, 1.0);
+                GeometryDrawing drawing = new GeometryDrawing(Background, pen, geometry);
+
+                // Initialize brush.
+                DrawingBrush brush = new DrawingBrush(drawing);
+                brush.TileMode = TileMode.Tile;
+                brush.Viewport = new Rect(0, 0, width, height);
+                brush.ViewportUnits = BrushMappingMode.Absolute;
+
+                graphCanvas.Background = brush;
+            }
+            else
+            {
+                graphCanvas.Background = Background;
+            }
         }
 
         private void DrawPoints()
@@ -174,7 +188,7 @@ namespace Sweeper.Controls
 
                     for (int i = 0; i < 61 - points.Count; i++)
                     {
-                        fixedPoints.Add(50);
+                        fixedPoints.Add(0);
                     }
 
                     fixedPoints.AddRange(points);
@@ -186,6 +200,7 @@ namespace Sweeper.Controls
                 double canvasHeight = Height - 2;
                 double blockWidth = canvasWidth / 60;
                 double blockHeight = canvasHeight / 100;
+                double collisionLimitBlockSize = 1;
 
                 // Calculate actual point.
                 PointCollection pointCollection = new PointCollection(61);
@@ -195,20 +210,18 @@ namespace Sweeper.Controls
                     pointCollection.Add(new Point(blockWidth * i, canvasHeight - (blockHeight * points[i])));
 
                     // Processing line collision adjustment.
-                    if ((int)Math.Round(pointCollection[i].Y) >= (int)Math.Round(canvasHeight))
+                    if ((int)Math.Round(pointCollection[i].Y) >= (int)Math.Round(canvasHeight - collisionLimitBlockSize))
                     {
                         Point point = pointCollection[i];
-                        point.Y = canvasHeight - 1;
+                        point.Y = canvasHeight;
                         pointCollection[i] = point;
                     }
-                    else if ((int)Math.Round(pointCollection[i].Y) <= 0)
+                    else if ((int)Math.Round(pointCollection[i].Y) <= collisionLimitBlockSize)
                     {
                         Point point = pointCollection[i];
-                        point.Y = 1;
+                        point.Y = 0;
                         pointCollection[i] = point;
                     }
-
-                    Debug.WriteLine($"{points[i]}");
                 }
 
                 Polyline polyline = new Polyline();
@@ -234,6 +247,22 @@ namespace Sweeper.Controls
         {
             PolygonalGraphBox control = d as PolygonalGraphBox;
             control.DrawGraph();
+        }
+
+        private static void OnShowGridChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            PolygonalGraphBox control = d as PolygonalGraphBox;
+            control.DrawBackground();
+        }
+
+        private static void OnPointsChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var control = d as PolygonalGraphBox;
+
+            if (e.NewValue != null)
+            {
+                control.DrawGraph();
+            }
         }
 
         #endregion

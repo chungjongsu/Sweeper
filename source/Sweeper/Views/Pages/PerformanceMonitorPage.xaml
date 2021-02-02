@@ -10,7 +10,21 @@
       Title="PerformanceMonitorPage">
 
     <Grid>
-        <controls:PolygonalGraphBox BorderBrush="{DynamicResource PrimaryHueMidBrush}" LineBrush="{DynamicResource PrimaryHueMidBrush}" GridBrush="{DynamicResource MaterialDesignDivider}"
-            Width="600" Height="300" ShowGrid="True" Points="{Binding GraphPoints}"/>
+        <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <StackPanel Orientation="Horizontal">
+                <controls:PolygonalGraphBox BorderBrush="{DynamicResource PrimaryHueMidBrush}" LineBrush="{DynamicResource PrimaryHueMidBrush}" GridBrush="{DynamicResource MaterialDesignDivider}"
+            Width="100" Height="60" ShowGrid="False" Points="{Binding GraphPoints, Mode=TwoWay}"/>
+                <controls:PolygonalGraphBox BorderBrush="{DynamicResource PrimaryHueMidBrush}" LineBrush="{DynamicResource PrimaryHueMidBrush}" GridBrush="{DynamicResource MaterialDesignDivider}"
+            Margin="10 0 0 0" Width="200" Height="100" ShowGrid="False" Points="{Binding GraphPoints, Mode=TwoWay}"/>
+                <controls:PolygonalGraphBox BorderBrush="{DynamicResource PrimaryHueMidBrush}" LineBrush="{DynamicResource PrimaryHueMidBrush}" GridBrush="{DynamicResource MaterialDesignDivider}"
+            Margin="10 0 0 0" Width="450" Height="200" ShowGrid="True" Points="{Binding GraphPoints, Mode=TwoWay}"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button Margin="0 10 0 0" Command="{Binding SetPointsCommand}" Content="Set Points"/>
+                <Button Margin="10 10 0 0" Command="{Binding StartCommand}" Content="Start"/>
+                <Button Margin="10 10 0 0" Command="{Binding StopCommand}" Content="Stop"/>
+            </StackPanel>
+        </StackPanel>
     </Grid>
 </Page>
