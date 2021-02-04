@@ -137,11 +137,10 @@ namespace Sweeper.Controls
 
         private void DrawBackground()
         {
-            Debug.WriteLine(ShowGrid);
             if (ShowGrid)
             {
-                double width = (Width - 2) / 20;
-                double height = (Height - 2) / 10;
+                double width = (ActualWidth - 2) / 20;
+                double height = (ActualHeight - 2) / 10;
 
                 if (width < 0)
                 {
@@ -196,8 +195,8 @@ namespace Sweeper.Controls
                     points = fixedPoints;
                 }
 
-                double canvasWidth = Width - 2;
-                double canvasHeight = Height - 2;
+                double canvasWidth = ActualWidth - 2;
+                double canvasHeight = ActualHeight - 2;
                 double blockWidth = canvasWidth / 60;
                 double blockHeight = canvasHeight / 100;
                 double collisionLimitBlockSize = 1;

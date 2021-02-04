@@ -1,9 +1,12 @@
 ﻿using Sweeper.Bases;
 using Sweeper.Commands;
+using Sweeper.Core.Diagnostics;
+using Sweeper.Core.Diagnostics.Entities;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,99 +19,123 @@ namespace Sweeper.ViewModels.Pages
 {
     public class PerformanceMonitorViewModel : ViewModelBase
     {
-        private ObservableCollection<double> _graphPoints = new ObservableCollection<double>();
+        #region ::Fields & Properties::
 
-        private Timer _timer = new Timer();
+        private PerformanceMonitor _monitor = new PerformanceMonitor();
 
-        private PerformanceCounter _cpuCounter = new PerformanceCounter("Processor", "% Processor Time", "_Total");
+        private ObservableCollection<double> _cpuGraphPoints = new ObservableCollection<double>();
+        private ObservableCollection<double> _memoryGraphPoints = new ObservableCollection<double>();
 
+        public List<DriveInformation> _drives = DriveManager.GetDrives();
 
-        public ObservableCollection<double> GraphPoints
+        public ObservableCollection<double> CpuGraphPoints
         {
             get
             {
-                return _graphPoints;
+                return _cpuGraphPoints;
             }
             set
             {
-                _graphPoints = value;
+                _cpuGraphPoints = value;
                 RaisePropertyChanged();
             }
         }
 
-        private ICommand _setPointsCommand;
-
-        public ICommand SetPointsCommand
+        public ObservableCollection<double> MemoryGraphPoints
         {
             get
             {
-                return (_setPointsCommand) ?? (_setPointsCommand = new DelegateCommand(SetPoints));
+                return _memoryGraphPoints;
+            }
+            set
+            {
+                _memoryGraphPoints = value;
+                RaisePropertyChanged();
             }
         }
 
-        private ICommand _startCommand;
-
-        public ICommand StartCommand
+        public List<DriveInformation> Drives
         {
             get
             {
-                return (_startCommand) ?? (_startCommand = new DelegateCommand(Start));
+                return _drives;
+            }
+            set
+            {
+                _drives = value;
+                RaisePropertyChanged();
             }
         }
 
-        private ICommand _sropCommand;
+        private ICommand _refreshDrivesCommand;
 
-        public ICommand StopCommand
+        public ICommand RefreshDrivesCommand
         {
             get
             {
-                return (_sropCommand) ?? (_sropCommand = new DelegateCommand(Stop));
+                return (_refreshDrivesCommand) ?? (_refreshDrivesCommand = new DelegateCommand(RefreshDrives));
             }
         }
+
+        private ICommand _optimizeCommand;
+
+        public ICommand OptimizeCommand
+        {
+            get
+            {
+                return (_optimizeCommand) ?? (_optimizeCommand = new DelegateCommand(Optimize));
+            }
+        }
+
+        #endregion
+
+        #region ::Constructors::
 
         public PerformanceMonitorViewModel()
         {
-            SetPoints();
+            _monitor.Timer.Elapsed += OnTimerElapsed;
+            _monitor.Start();
         }
 
-        private void SetPoints()
+        #endregion
+
+        #region ::Command Actions::
+
+        private void RefreshDrives()
         {
-            ObservableCollection<double> points = new ObservableCollection<double>();
+            Drives = DriveManager.GetDrives();
+        }
 
-            Random r = new Random();
+        private void Optimize()
+        {
 
-            for (int i = 0; i <= 60; i++)
+        }
+
+        #endregion
+
+        #region ::Event Subscribers::
+
+        private void OnTimerElapsed(object sender, ElapsedEventArgs e)
+        {
+            List<double> cpuTemp = CpuGraphPoints.ToList();
+            List<double> memoryTemp = MemoryGraphPoints.ToList();
+            cpuTemp.Add(_monitor.GetCPURate());
+            memoryTemp.Add(_monitor.GetMemoryRate());
+
+            if (cpuTemp.Count > 61)
             {
-                points.Add(r.NextDouble() * 100);
+                cpuTemp.RemoveRange(0, cpuTemp.Count - 61);
             }
 
-            GraphPoints = points;
-        }
-
-        private void Start()
-        {
-            _timer = new Timer(1000);
-            _timer.Elapsed += new ElapsedEventHandler((sender, e) =>
+            if (memoryTemp.Count > 61)
             {
-                List<double> temp = GraphPoints.ToList();
-                temp.Add(_cpuCounter.NextValue());
-
-                if (temp.Count > 61)
-                {
-                    temp.RemoveRange(0, temp.Count - 61);
-                }
-
-                GraphPoints = new ObservableCollection<double>(temp);
-            });
-            _timer.Start();
-        }
-
-        private void Stop()
-        {
-            if (_timer != null && _timer.Enabled == true)
-            {
-                _timer.Stop();
+                memoryTemp.RemoveRange(0, memoryTemp.Count - 61);
             }
+
+            CpuGraphPoints = new ObservableCollection<double>(cpuTemp);
+            MemoryGraphPoints = new ObservableCollection<double>(memoryTemp);
         }
+
+        #endregion
     }
 }

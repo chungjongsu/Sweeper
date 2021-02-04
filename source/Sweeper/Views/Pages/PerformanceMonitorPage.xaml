@@ -5,26 +5,178 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Sweeper.Views.Pages"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+      TextElement.FontWeight="Regular"
+      TextElement.FontSize="13"
+      TextOptions.TextFormattingMode="Ideal" 
+      TextOptions.TextRenderingMode="Auto"        
+      FontFamily="{DynamicResource MaterialDesignFont}"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="PerformanceMonitorPage">
 
     <Grid>
-        <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
-            <StackPanel Orientation="Horizontal">
-                <controls:PolygonalGraphBox BorderBrush="{DynamicResource PrimaryHueMidBrush}" LineBrush="{DynamicResource PrimaryHueMidBrush}" GridBrush="{DynamicResource MaterialDesignDivider}"
-            Width="100" Height="60" ShowGrid="False" Points="{Binding GraphPoints, Mode=TwoWay}"/>
-                <controls:PolygonalGraphBox BorderBrush="{DynamicResource PrimaryHueMidBrush}" LineBrush="{DynamicResource PrimaryHueMidBrush}" GridBrush="{DynamicResource MaterialDesignDivider}"
-            Margin="10 0 0 0" Width="200" Height="100" ShowGrid="False" Points="{Binding GraphPoints, Mode=TwoWay}"/>
-                <controls:PolygonalGraphBox BorderBrush="{DynamicResource PrimaryHueMidBrush}" LineBrush="{DynamicResource PrimaryHueMidBrush}" GridBrush="{DynamicResource MaterialDesignDivider}"
-            Margin="10 0 0 0" Width="450" Height="200" ShowGrid="True" Points="{Binding GraphPoints, Mode=TwoWay}"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+
+        <!-- Performance Monitor -->
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <!-- CPU Monitor -->
+            <StackPanel Grid.Column="0" Grid.Row="0" Orientation="Horizontal" VerticalAlignment="Center" Margin="10 0 0 0">
+                <TextBlock Style="{StaticResource MaterialDesignBody1TextBlock}" Text="CPU" />
             </StackPanel>
 
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                <Button Margin="0 10 0 0" Command="{Binding SetPointsCommand}" Content="Set Points"/>
-                <Button Margin="10 10 0 0" Command="{Binding StartCommand}" Content="Start"/>
-                <Button Margin="10 10 0 0" Command="{Binding StopCommand}" Content="Stop"/>
+            <Grid Grid.Column="0" Grid.Row="1" Margin="10 0 10 4">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition/>
+                    <RowDefinition Height="30"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Column="0" Grid.Row="0" Style="{StaticResource MaterialDesignCaptionTextBlock}" VerticalAlignment="Center" HorizontalAlignment="Left" Text="이용률(%)" />
+                <TextBlock Grid.Column="2" Grid.Row="0" Style="{StaticResource MaterialDesignCaptionTextBlock}" VerticalAlignment="Center" HorizontalAlignment="Right" Text="100%" />
+
+                <controls:PolygonalGraphBox Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1"
+                                            BorderBrush="{DynamicResource CpuGraphBrush}" LineBrush="{DynamicResource CpuGraphBrush}" GridBrush="{DynamicResource MaterialDesignDivider}"
+                                            ShowGrid="True" Points="{Binding CpuGraphPoints}"/>
+
+                <TextBlock Grid.Column="0" Grid.Row="2" Style="{StaticResource MaterialDesignCaptionTextBlock}" VerticalAlignment="Center" HorizontalAlignment="Left" Text="60초" />
+                <TextBlock Grid.Column="2" Grid.Row="2" Style="{StaticResource MaterialDesignCaptionTextBlock}" VerticalAlignment="Center" HorizontalAlignment="Right" Text="0초 / 1%" />
+            </Grid>
+
+            <!-- MEMORY Monitor -->
+            <StackPanel Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="0" Orientation="Horizontal" VerticalAlignment="Center" Margin="10 0 0 0">
+                <TextBlock Style="{StaticResource MaterialDesignBody1TextBlock}" Text="MEMORY" />
             </StackPanel>
-        </StackPanel>
+
+            <Grid Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1" Margin="10 0 10 4">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition/>
+                    <RowDefinition Height="30"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Column="0" Grid.Row="0" Style="{StaticResource MaterialDesignCaptionTextBlock}" VerticalAlignment="Center" HorizontalAlignment="Left" Text="이용률(%)" />
+                <TextBlock Grid.Column="2" Grid.Row="0" Style="{StaticResource MaterialDesignCaptionTextBlock}" VerticalAlignment="Center" HorizontalAlignment="Right" Text="100%" />
+
+                <controls:PolygonalGraphBox Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1"
+                                            BorderBrush="{DynamicResource MemoryGraphBrush}" LineBrush="{DynamicResource MemoryGraphBrush}" GridBrush="{DynamicResource MaterialDesignDivider}"
+                                            ShowGrid="True" Points="{Binding MemoryGraphPoints}"/>
+
+                <TextBlock Grid.Column="0" Grid.Row="2" Style="{StaticResource MaterialDesignCaptionTextBlock}" VerticalAlignment="Center" HorizontalAlignment="Left" Text="60초" />
+                <TextBlock Grid.Column="2" Grid.Row="2" Style="{StaticResource MaterialDesignCaptionTextBlock}" VerticalAlignment="Center" HorizontalAlignment="Right" Text="0초 / 1%" />
+            </Grid>
+        </Grid>
+
+        <GridSplitter Grid.Row="1" Background="{DynamicResource MaterialDesignDivider}" VerticalAlignment="Center" HorizontalAlignment="Stretch" Height="1"/>
+
+        <!-- Drive Usage Viewer -->
+        <Grid Grid.Row="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <StackPanel Grid.Row="0" Orientation="Horizontal" VerticalAlignment="Center" Margin="10 0 0 0">
+                <TextBlock Style="{StaticResource MaterialDesignBody1TextBlock}" Text="DRIVES" />
+            </StackPanel>
+
+            <Grid Grid.Row="1">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <ItemsControl ItemsSource="{Binding Drives}" Margin="5 0 5 0">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel Orientation="Horizontal"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <DataTemplate.Resources>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="HorizontalAlignment" Value="Center" />
+                                    </Style>
+                                </DataTemplate.Resources>
+
+                                <Border BorderBrush="{DynamicResource MaterialDesignDivider}" BorderThickness="1">
+                                    <Grid Background="Transparent">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="40"/>
+                                            <RowDefinition/>
+                                        </Grid.RowDefinitions>
+
+                                        <Border Grid.Row="0" BorderBrush="{DynamicResource MaterialDesignDivider}" BorderThickness="0 0 0 1">
+                                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                                <Image VerticalAlignment="Center" Margin="8 0 0 0" Width="20" Height="20"
+                                               RenderOptions.EdgeMode="Aliased" RenderOptions.BitmapScalingMode="NearestNeighbor" SnapsToDevicePixels="True"
+                                               Source="{Binding DriveIcon}"/>
+                                                <TextBlock Style="{StaticResource MaterialDesignBody2TextBlock}" VerticalAlignment="Center" Margin="6 0 0 0" Text="{Binding Name}" />
+                                            </StackPanel>
+                                        </Border>
+
+                                        <StackPanel Grid.Row="1" Orientation="Vertical" Margin="8">
+
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}" Opacity=".80" Text="Used : " />
+                                                <ProgressBar Style="{StaticResource MaterialDesignCircularProgressBar}" Width="16" Height="16" Value="{Binding UsagePercentage}" />
+                                                <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}" Margin="4 0 0 0" Opacity=".80" Text="{Binding UsagePercentage}" />
+                                                <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}" Opacity=".80" Text="%" />
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}" Opacity=".80" Text="Type : " />
+                                                <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}" Opacity=".80" Text="{Binding Type}" />
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+
+                        </ItemsControl.ItemTemplate>
+
+                        <ItemsControl.ItemContainerStyle>
+                            <Style>
+                                <Setter Property="Control.Margin" Value="5" />
+                                <Setter Property="Control.Width" Value="250" />
+                                <Setter Property="Control.Height" Value="100" />
+                                <Style.Triggers>
+                                    <Trigger Property="Control.IsMouseOver" Value="True">
+                                        <Setter Property="Control.ToolTip" Value="{Binding Information}" />
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </ItemsControl.ItemContainerStyle>
+                    </ItemsControl>
+                </ScrollViewer>
+            </Grid>
+        </Grid>
+
+        <Border Grid.Row="3" BorderBrush="{DynamicResource MaterialDesignDivider}" BorderThickness="0 1 0 0">
+            <Grid>
+                <Button Style="{StaticResource MaterialDesignFlatButton}" HorizontalAlignment="Right" Margin="0 0 10 0" Content="Optimize >" />
+            </Grid>
+        </Border>
     </Grid>
 </Page>

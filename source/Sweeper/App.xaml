@@ -19,15 +19,9 @@
                 <ResourceDictionary Source="pack://application:,,,/Sweeper;component/Styles/SweeperWindow.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
-            <!-- Addtional Brushes -->
-            <SolidColorBrush x:Key="HighlightBrush" Color="{DynamicResource Primary700}"/>
-            <SolidColorBrush x:Key="AccentBaseColorBrush" Color="{DynamicResource Primary600}" />
-            <SolidColorBrush x:Key="AccentColorBrush" Color="{DynamicResource Primary500}"/>
-            <SolidColorBrush x:Key="AccentColorBrush2" Color="{DynamicResource Primary400}"/>
-            <SolidColorBrush x:Key="AccentColorBrush3" Color="{DynamicResource Primary300}"/>
-            <SolidColorBrush x:Key="AccentColorBrush4" Color="{DynamicResource Primary200}"/>
-            <SolidColorBrush x:Key="WindowTitleColorBrush" Color="{DynamicResource Primary700}"/>
-            <SolidColorBrush x:Key="AccentSelectedColorBrush" Color="{DynamicResource Primary500Foreground}"/>
+            <!-- Graph Brushes -->
+            <SolidColorBrush x:Key="CpuGraphBrush" Color="#2196F3"/>
+            <SolidColorBrush x:Key="MemoryGraphBrush" Color="#8B21AE"/>
         </ResourceDictionary>
     </Application.Resources>
 </Application>
